@@ -19,12 +19,12 @@ int _printf(const char * format, ...)
         while( *traverse != '%' )
 		{   
 		    _putchar(*traverse);
-            traverse++; 
-            length++;     	
+                     traverse++; 
+                     length++;     	
 		}
     
         traverse++;
-		length++; 
+        length++; 
 
        
         switch(*traverse) 
@@ -50,16 +50,16 @@ int _printf(const char * format, ...)
             case 'p': printf_pointer;
                         break;
                         
-			case '%': printf_37;
-			            break;
+	    case '%': printf_37;
+			break;
                         
-			case 'x': printf_hex;                         
+	    case 'x': printf_hex;                         
                         break;
              
-			case 'X': printf_HEX;    
+	    case 'X': printf_HEX;    
                         break;            
                         
-          	case 'b': printf_bin;    
+           case 'b': printf_bin;    
                         break; 
                         
             case 'S': printf_exclusive_string;
