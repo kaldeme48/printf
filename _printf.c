@@ -1,33 +1,35 @@
 #include "main.h"
+
 /**
- * _printf - will print based on input (should act exaclty as printf in stdio
- * @format: input
- * Return: correct data type to print to stdout
+ * _printf - Entry point
+ * @format: A string containing all the desired characters
+ * Return: A total count of the characters printed
  */
 int _printf(const char *format, ...)
 {
-	va_list arg_list; /* argument list that will print data type */
-	int kd;
-
-	/**
-	 * array of structs that contain character specifier
-	 * as well as corresponding function that will carry out operation
-	 */
-	operations_t specs[] = {
-		{"c", _char},
-		{"s", _str},
-		{"d", _decimal},
-		{"i", _decimal},
-		{"r", _unknown},
+	int printed_chars;
+	conver_t f_list[] = {
+		{"c", print_char},
+		{"s", print_string},
+		{"%", print_percent},
+		{"d", print_integer},
+		{"i", print_integer},
+		{"b", print_binary},
+		{"r", print_reversed},
+		{"R", rot13},
+		{"u", unsigned_integer},
+		{"o", print_octal},
+		{"x", print_hex},
+		{"X", print_heX},
 		{NULL, NULL}
 	};
+	va_list arg_list;
+
 	if (format == NULL)
 		return (-1);
 
-	va_start(arg_list, format); /*start argument list and co*/
-
-	kd = get_oper(format, specs, arg_list);
-
+	va_start(arg_list, format);
+	printed_chars = parser(format, f_list, arg_list);
 	va_end(arg_list);
-	return (kd);
+	return (printed_chars);
 }
