@@ -1,93 +1,33 @@
 #include "main.h"
-
 /**
- * _printf - Entry point
- *
- * @format: A string containing all the desired characters
- *
- * Description: Receives the main string and all the necessary parameters to
- * print a formated string
- *
- * Return: A total count of the characters printed
+ * _printf - will print based on input (should act exaclty as printf in stdio
+ * @format: input
+ * Return: correct data type to print to stdout
  */
-
 int _printf(const char *format, ...)
 {
-	int printed_chars;
-	con_vert f_list[] = {
-		{"c", print_char},
-		{"s", print_string},
-		{"%", print_percent},
-		{"d", print_integer},
-		{"i", print_integer},
+	va_list arg_list; /* argument list that will print data type */
+	int kd;
+
+	/**
+	 * array of structs that contain character specifier
+	 * as well as corresponding function that will carry out operation
+	 */
+	operations_t specs[] = {
+		{"c", _char},
+		{"s", _str},
+		{"d", _decimal},
+		{"i", _decimal},
+		{"r", _unknown},
 		{NULL, NULL}
 	};
-	va_list arg_list;
-
 	if (format == NULL)
 		return (-1);
 
-	va_start(arg_list, format);
+	va_start(arg_list, format); /*start argument list and co*/
 
-	/*Calling parser function*/
-	printed_chars = parser(format, f_list, arg_list);
+	kd = get_oper(format, specs, arg_list);
+
 	va_end(arg_list);
-	return (printed_chars);
+	return (kd);
 }
-
-/**
- * parser - Entry Point
- *
- * Description: Receives the main string and all the necessary parameters to
- * print a formated string.
- *
- * @format: A string containing all the desired characters.
- * @f_list: A list of all the posible functions.
- * @arg_list: A list containing all the argumentents passed to the program.
- *
- * Return: A total count of the characters printed.
- */
-
-int parser(const char *format, con_vert f_list[], va_list arg_list)
-{
-	int i, j, r_val, printed_chars;
-
-	printed_chars = 0;
-	for (i = 0; format[i] != '\0'; i++) /* Iterates through the main str*/
-	{
-		if (format[i] == '%') /*Checks for format specifiers*/
-		{
-			/*Iterates through struct to find the right func*/
-			for (j = 0; f_list[j].sym != NULL; j++)
-			{
-				if (format[i + 1] == f_list[j].sym[0])
-				{
-					r_val = f_list[j].f(arg_list);
-					if (r_val == -1)
-						return (-1);
-					printed_chars += r_val;
-					break;
-				}
-			}
-			if (f_list[j].sym == NULL && format[i + 1] != ' ')
-			{
-				if (format[i + 1] != '\0')
-				{
-					_putchar(format[i]);
-					_putchar(format[i + 1]);
-					printed_chars = printed_chars + 2;
-				}
-				else
-					return (-1);
-			}
-			i = i + 1; /*Updating i to skip format symbols*/
-		}
-		else
-		{
-			_putchar(format[i]); /*call the write function*/
-			printed_chars++;
-		}
-	}
-	return (printed_chars);
-}
-
