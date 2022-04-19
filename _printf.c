@@ -1,6 +1,6 @@
 #include "main.h"
 /**
- * _printf - Entry point
+ * _printf - print function
  * @format: const char pointer
  * Return: b_len
  */
