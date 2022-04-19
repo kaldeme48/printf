@@ -6,24 +6,21 @@
 #include <stdarg.h>
 #include <limits.h>
 #include <unistd.h>
+
 /**
- * struct convert - Entry point
+ * struct oper - Entry point
  *
  * Description: Defines a structure for symbols and functions
  *
- * @sym: The operator
- * @f: The function associated
  */
 
-struct convert
+typedef struct oper
 {
+	char *ptr;
+	int (*f)();
+} operations_t;
 
-	char *sym;
-	int (*f)(va_list);
-
-};
-typedef struct convert con_vert;
-
+int get_oper(const char *format, operations_t *structs, va_list arg_list);
 int printf_pointer(va_list val);
 int printf_hex_aux(unsigned long int num);
 int printf_HEX_aux(unsigned int num);
