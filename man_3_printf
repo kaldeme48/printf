@@ -1,4 +1,4 @@
-.TH _PRINTF "1" "4 April 2022" "0x11" "_printf man page"
+.TH _PRINTF "1" "15 April 2022" "0x11" "_printf man page"
 .SH NAME
 _printf - print data and format
 .SH SYNOPSIS
@@ -33,3 +33,4 @@ In the Example print the value of text with %s give the format of text.
 .SH AUTHOR
 Oliyad Kebede
 Kaleab Ayalew
+
